@@ -24,7 +24,18 @@
 */
 
 function addExerciseToRoutineForLoop(routine, exercise, numRepetitions) {
-    // Your Code Here!  Use a For loop, not a for-of loop.
+  // Your Code Here!  Use a For loop, not a for-of loop.
+  // noooooooo more physical training noooooo lol
+  /*   let position = 0;
+  while (position < numRepetitions) {
+    routine.push(exercise);
+    // console.log(routine); ...so useful for debugging omg
+    position++;
+  } */
+
+  for (position = 0; position < numRepetitions; position++) {
+    routine.push(exercise);
+  }
 }
 
 /* 
@@ -38,10 +49,14 @@ addExerciseToRoutineForLoop(routineOne, "situp", 4);
 console.log(compareArray(routineOne, ["situp", "situp", "situp", "situp"]));
 console.log("* Add single pushup");
 addExerciseToRoutineForLoop(routineOne, "pushup", 1);
-console.log(compareArray(routineOne, ["situp", "situp", "situp", "situp", "pushup"]));
+console.log(
+  compareArray(routineOne, ["situp", "situp", "situp", "situp", "pushup"])
+);
 console.log("* Add zero pullups");
 addExerciseToRoutineForLoop(routineOne, "pullup", 0);
-console.log(compareArray(routineOne, ["situp", "situp", "situp", "situp", "pushup"]));
+console.log(
+  compareArray(routineOne, ["situp", "situp", "situp", "situp", "pushup"])
+);
 
 /* ------------------------------------------------
     Exercise Two
@@ -61,10 +76,23 @@ console.log(compareArray(routineOne, ["situp", "situp", "situp", "situp", "pushu
 */
 
 function findMinimumAndMaximum(schedule) {
-    let min = Number.POSITIVE_INFINITY;
-    let max = 0;
-    // Your Code Here!
-    return [min, max];
+  let min = Number.POSITIVE_INFINITY;
+  let max = 0;
+  min = schedule[0];
+  max = schedule[0];
+  // Your Code Here!
+  // if a number is found to be less than min or greater than max, replace min/max, else move on
+  for (count = 0; count < schedule.length; count++) {
+    if (schedule[count] < min) {
+      min = schedule[count];
+    } else if (schedule[count] > max) {
+      max = schedule[count];
+    } else {
+      // What do I do with these empty elses...
+      // The code didn't find a number that is lesser than the min or greater than the max, so it moves on
+    }
+  }
+  return [min, max];
 }
 
 /* 
@@ -87,12 +115,10 @@ schedule = [8];
 result = findMinimumAndMaximum(schedule);
 console.log(result[0] == 8 && result[1] == 8);
 
-
 console.log("* Find min and max with zero");
 schedule = [8, 0, 3, 10];
 result = findMinimumAndMaximum(schedule);
 console.log(result[0] == 0 && result[1] == 10);
-
 
 /* ------------------------------------------------
     Exercise Three
@@ -132,9 +158,10 @@ console.log(result[0] == 0 && result[1] == 10);
 */
 
 function convertRoutineFromNewFormat(routineString) {
-    let routine = [];
-    // Your Code Here!
-    return routine;
+  let routine = [];
+  // Your Code Here!
+
+  return routine;
 }
 
 /* 
@@ -145,28 +172,36 @@ console.log("-----Tests for Exercise Three-----");
 console.log("* Perform Routine");
 let routineThreeString = "5:situp|4:pushup|3:legraise|2:pullup";
 let routineThree = convertRoutineFromNewFormat(routineThreeString);
-console.log(compareArray(routineThree, [
-    "situp", "situp", "situp", "situp", "situp",
-    "pushup", "pushup", "pushup", "pushup",
-    "legraise", "legraise", "legraise",
-    "pullup", "pullup"
-]));
-
+console.log(
+  compareArray(routineThree, [
+    "situp",
+    "situp",
+    "situp",
+    "situp",
+    "situp",
+    "pushup",
+    "pushup",
+    "pushup",
+    "pushup",
+    "legraise",
+    "legraise",
+    "legraise",
+    "pullup",
+    "pullup",
+  ])
+);
 
 console.log("* Perform Routine with empty exercise");
 routineThreeString = "3:situp|0:pushup|1:legraise";
 routineThree = convertRoutineFromNewFormat(routineThreeString);
-console.log(compareArray(routineThree, [
-    "situp", "situp", "situp",
-    "legraise",
-]));
+console.log(
+  compareArray(routineThree, ["situp", "situp", "situp", "legraise"])
+);
 
 console.log("* Perform single exercise");
 routineThreeString = "3:situp";
 routineThree = convertRoutineFromNewFormat(routineThreeString);
-console.log(compareArray(routineThree, [
-    "situp", "situp", "situp"
-]));
+console.log(compareArray(routineThree, ["situp", "situp", "situp"]));
 
 /* ---------------------------------------------------------------------------
     Exercise Four
@@ -201,9 +236,40 @@ console.log(compareArray(routineThree, [
 */
 
 function calculateRoutineDifficulty(routine) {
-    let difficulty = "";
-    // Your Code Here!
-    return difficulty;
+  let difficulty = "";
+  // Your Code Here!
+  let points = 0;
+  for (parser = 0; parser < routine.length; parser++) {
+    switch (routine[parser]) {
+      case "situp":
+        points = points + 1;
+        break;
+      case "legraise":
+        points = points + 2;
+        break;
+      case "pushup":
+        points = points + 4;
+        break;
+      case "pullup":
+        points = points + 10;
+        break;
+      default:
+        break;
+    }
+  }
+
+  if (points < 30) {
+    difficulty = "Easy";
+  } else if (points >= 30 && points < 60) {
+    difficulty = "Hard";
+  } else if (points >= 60) {
+    difficulty = "Insane";
+  } else {
+    difficulty = "Cannot determine difficulty";
+  }
+  return difficulty;
+
+  // This was easier than problem 3 omg
 }
 
 /* 
@@ -212,19 +278,63 @@ function calculateRoutineDifficulty(routine) {
 */
 console.log("-----Tests for Exercise Four-----");
 console.log("* Calculate Easy Routine");
-let routineFour = ["situp", "situp", "situp", "situp", "legraise", "legraise", "legraise", "legraise"];
+let routineFour = [
+  "situp",
+  "situp",
+  "situp",
+  "situp",
+  "legraise",
+  "legraise",
+  "legraise",
+  "legraise",
+];
 console.log(calculateRoutineDifficulty(routineFour) == "Easy");
 
 console.log("* Calculate Hard Routine");
-routineFour = ["situp", "situp", "pushup", "pushup", "pushup", "pushup", "pushup", "pushup", "pushup", "pushup"];
+routineFour = [
+  "situp",
+  "situp",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+];
 console.log(calculateRoutineDifficulty(routineFour) == "Hard");
 
 console.log("* Calculate Exactly 30");
-routineFour = ["situp", "situp", "pushup", "pushup", "pushup", "pushup", "pushup", "pushup", "legraise", "legraise"];
+routineFour = [
+  "situp",
+  "situp",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "legraise",
+  "legraise",
+];
 console.log(calculateRoutineDifficulty(routineFour) == "Hard");
 
 console.log("* Calculate Insane Routine");
-routineFour = ["situp", "situp", "pushup", "pushup", "pushup", "pushup", "legraise", "legraise", "pullup", "pullup", "pullup", "pullup"];
+routineFour = [
+  "situp",
+  "situp",
+  "pushup",
+  "pushup",
+  "pushup",
+  "pushup",
+  "legraise",
+  "legraise",
+  "pullup",
+  "pullup",
+  "pullup",
+  "pullup",
+];
 console.log(calculateRoutineDifficulty(routineFour) == "Insane");
 
 /*
@@ -236,27 +346,27 @@ console.log(calculateRoutineDifficulty(routineFour) == "Insane");
    But read through these and try to understand what they  do.
 */
 function copyArray(arr) {
-    let copy = [];
+  let copy = [];
 
-    if (arr && arr.length > 0) {
-        for (let index in arr) {
-            copy[index] = arr[index];
-        }
+  if (arr && arr.length > 0) {
+    for (let index in arr) {
+      copy[index] = arr[index];
     }
+  }
 
-    return copy;
+  return copy;
 }
 
 function compareArray(arr1, arr2) {
-    if (!arr1 || !arr2 || arr1.length != arr2.length) {
-        return false;
-    }
+  if (!arr1 || !arr2 || arr1.length != arr2.length) {
+    return false;
+  }
 
-    for (let index in arr1) {
-        if (arr1[index] != arr2[index]) {
-            return false;
-        }
+  for (let index in arr1) {
+    if (arr1[index] != arr2[index]) {
+      return false;
     }
+  }
 
-    return true;
+  return true;
 }

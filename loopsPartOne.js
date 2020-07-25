@@ -44,6 +44,12 @@
 
 function addExerciseToRoutine(routine, exercise, numRepetitions) {
   // Your Code Here!
+  let position = 0;
+  while (position < numRepetitions) {
+    routine.push(exercise);
+    // console.log(routine); ...so useful for debugging omg
+    position++;
+  }
 }
 
 /* 
@@ -98,6 +104,11 @@ function doAction(action) {
 
 function performRoutine(routine) {
   // Your Code Here!
+  let position = 0;
+  while (position < routine.length) {
+    doAction(routine[position]);
+    position++;
+  }
 }
 
 /* 
@@ -129,26 +140,34 @@ console.log(compareArray(routineTwo, actionsPerformed));
 /* ---------------------------------------------------------------------------
     Exercise Three
 
-    Counting the total number of repetitions of an exercise
+    positioning the total number of repetitions of an exercise
 
-    Create the countRepsOfActionInRoutine function.
+    Create the positionRepsOfActionInRoutine function.
     
-    For a given exercise type, this should count how many times that exercise
+    For a given exercise type, this should position how many times that exercise
     occurs in a routine, returning that number.
 
     For example:
     let routine = ["situp", "situp", "pushup", "pushup", "situp", "situp"];
 
-    let numSitups = countRepsOfActionInRoutine(routine, "situp");
+    let numSitups = positionRepsOfActionInRoutine(routine, "situp");
 
     numSitups should be 4, since there are four situps in the routine.
 
 */
 
-function countRepsOfActionInRoutine(routine, action) {
-  let count = 0;
+function positionRepsOfActionInRoutine(routine, action) {
+  let position = 0;
   // Your Code Here!
-  return count;
+  let index = 0;
+  while (index < routine.length) {
+    if (routine[index] == action) {
+      position++;
+    }
+    index++;
+  }
+
+  return position;
 }
 
 /* 
@@ -156,7 +175,7 @@ function countRepsOfActionInRoutine(routine, action) {
    Run these commands to make sure you did it right. They should all be true.
 */
 console.log("-----Tests for Exercise Three-----");
-console.log("* Count pushups");
+console.log("* position pushups");
 let routineThree = [
   "situp",
   "situp",
@@ -167,9 +186,9 @@ let routineThree = [
   "pushup",
   "pushup",
 ];
-console.log(countRepsOfActionInRoutine(routineThree, "pushup") == 4);
+console.log(positionRepsOfActionInRoutine(routineThree, "pushup") == 4);
 
-console.log("* Count out of order pushups");
+console.log("* position out of order pushups");
 routineThree = [
   "situp",
   "pushup",
@@ -180,9 +199,9 @@ routineThree = [
   "pushup",
   "pushup",
 ];
-console.log(countRepsOfActionInRoutine(routineThree, "pushup") == 4);
+console.log(positionRepsOfActionInRoutine(routineThree, "pushup") == 4);
 
-console.log("* Count missing crunch");
+console.log("* position missing crunch");
 routineThree = [
   "situp",
   "pushup",
@@ -193,7 +212,7 @@ routineThree = [
   "pushup",
   "pushup",
 ];
-console.log(countRepsOfActionInRoutine(routineThree, "crunch") == 0);
+console.log(positionRepsOfActionInRoutine(routineThree, "crunch") == 0);
 
 /* ---------------------------------------------------------------------------
     Exercise Four
@@ -227,7 +246,40 @@ console.log(countRepsOfActionInRoutine(routineThree, "crunch") == 0);
 
 function removeExerciseFromRoutine(routine, exercise) {
   // Your Code Here!
+  let count = 0;
+  let numberOfReps = routine.length;
+  while (count < routine.length) {
+    let indexFinder = routine.indexOf(exercise);
+    if (indexFinder > -1) {
+      routine.splice(indexFinder, 1);
+      numberOfReps--;
+      count++;
+    } else {
+      count++;
+    }
+  }
 }
+
+/* Debugged code for reference, including the console.logs to debug, because this was driving me nuts lol
+  let count = 0;
+  let numberOfReps = routine.length;
+  while (count < routine.length) {
+    let indexFinder = routine.indexOf(exercise);
+    if (indexFinder > -1) {
+      console.log("Found the exercise to remove at position " + indexFinder);
+      // if indexFinder finds the exercise to remove...then use splice to remove it
+      routine.splice(indexFinder, 1);
+      console.log(routine);
+      console.log("if Old Number of reps: "+numberOfReps);
+      numberOfReps--;
+      console.log("if New Number of reps: "+numberOfReps);
+      count++;
+    } else {
+      count++;
+      console.log("Else: New Number of reps: "+numberOfReps);
+      console.log(routine);
+    }
+  } */
 
 /*
    -------TESTS---------------------------------------------------------------
