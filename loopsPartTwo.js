@@ -157,9 +157,24 @@ console.log(result[0] == 0 && result[1] == 10);
     Hint2: This may require a two dimensional loop!
 */
 
+// notes: this took me so many hours and I probably did it inefficiently, I'd love to see a similar demo to the two-dimensional thing lol
+// this took like 5x the time it took to do the other 3 problems, I rewrote this like 8 times, whew
+
 function convertRoutineFromNewFormat(routineString) {
   let routine = [];
-  // Your Code Here!
+  // step 1: convert string to array
+  let sets = routineString.split("|"); // creates [ '5:situp', '4:pushup', '3:legraise', '2:pullup' ]
+  // step 2: outer loop
+  for (setsIndex = 0; setsIndex < sets.length; setsIndex++) {
+    let exerciseParser = sets[setsIndex]; // creates [ '5:situp' ]
+    let exerciseContainer = exerciseParser.split(":"); // creates [ '5', 'situp' ]
+    let exercise = exerciseContainer[1]; // gets the situp part, still is a string
+    // step 3: inner loop
+    for (let numReps = Number(exerciseParser[0]); numReps > 0; numReps--) {
+      // need numReps to be a number to decrement, looked up documentation to turn a string into a number
+      routine.push(exercise); // this one line is the bane of my night, never seemed to push anything
+    }
+  }
 
   return routine;
 }
